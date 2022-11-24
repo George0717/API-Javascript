@@ -5,12 +5,17 @@ let gender = document.getElementById("gender")
 let status = document.getElementById("status")
 let alert = document.getElementById("alert")
 let btn = document.getElementById('button')
+let dataForm = document.getElementById('form')
 
 
 getUser()
 
 function getUser() {
-    fetch("https://gorest.co.in/public/v2/users/")
+    fetch("https://gorest.co.in/public/v2/users/" , {
+        headers:{
+            Authorization: "Bearer ab03f0e11af4e49674af3f684717a0f9b89ac98ccc28f7bf729adb5410707a83"
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -97,6 +102,7 @@ function createUser(statusSimpan = 0, id = 0){
         fetch("https://gorest.co.in/public/v2/users/" + id, {
             method: "PUT",
             headers: {
+                'Content-Type' : 'application/json',
                 'Authorization': "Bearer ab03f0e11af4e49674af3f684717a0f9b89ac98ccc28f7bf729adb5410707a83"
             },
             body: JSON.stringify({
@@ -109,7 +115,7 @@ function createUser(statusSimpan = 0, id = 0){
         })
         .then(response => {
             response.json()
-            if(response.status == 201){
+            if(response.status == 200){
              alert.innerHTML = `
              <div class="alert alert-success" role="alert">
              Berhasil Diubah
@@ -121,6 +127,9 @@ function createUser(statusSimpan = 0, id = 0){
              Gagal Diubah
            </div>`
             }
+            console.log(response)
+            listUser.innerHTML = "" // kosongkan tabel list user
+            getUser() // panggil function getUser()
          })
          .then(results => {
             console.log(results)
@@ -146,6 +155,7 @@ function editUser(id) {
         name.value = data.name
         gender.value = data.gender
         status.value = data.status
+        dataForm.innerHTML = ``
         btn.innerHTML = "Ubah"
         btn.setAttribute("onclick", "createUser(1, " + id + ")")
     })
