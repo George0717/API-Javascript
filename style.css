@@ -1,0 +1,11 @@
+body {
+    background-image: url('bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.daftar {
+    background-color: rgb(95, 95, 99);
+    opacity: 0.9;
+}
