@@ -51,7 +51,7 @@ function deleteUser(id) {
         })
 }
 
-function createUser(statusSimpan = 0){
+function createUser(statusSimpan = 0, id = 0){
     if(statusSimpan == 0){
         console.log("Hapus data id: " + id)
     fetch("https://gorest.co.in/public/v2/users/" + id, {
@@ -94,6 +94,40 @@ function createUser(statusSimpan = 0){
 
     }
     else{
+        fetch("https://gorest.co.in/public/v2/users/" + id, {
+            method: "PUT",
+            headers: {
+                'Authorization': "Bearer ab03f0e11af4e49674af3f684717a0f9b89ac98ccc28f7bf729adb5410707a83"
+            },
+            body: JSON.stringify({
+                "email" : email.value,
+                "name" : name.value,
+                "gender" : gender.value,
+                "status" : status.value,
+            })
+            
+        })
+        .then(response => {
+            response.json()
+            if(response.status == 201){
+             alert.innerHTML = `
+             <div class="alert alert-success" role="alert">
+             Berhasil Diubah
+           </div>`
+            }
+            else{
+             alert.innerHTML = `
+             <div class="alert alert-danger" role="alert">
+             Gagal Diubah
+           </div>`
+            }
+         })
+         .then(results => {
+            console.log(results)
+        })
+        .catch(error => {
+            console.log(error)
+        })
         console.log("Button Ditekan")
     }
     
@@ -113,7 +147,7 @@ function editUser(id) {
         gender.value = data.gender
         status.value = data.status
         btn.innerHTML = "Ubah"
-        btn.setAttribute("onclick", "createUser(1)")
+        btn.setAttribute("onclick", "createUser(1, " + id + ")")
     })
     .catch(error => {
         console.log(error)
