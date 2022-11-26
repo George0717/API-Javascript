@@ -155,7 +155,25 @@ function editUser(id) {
         name.value = data.name
         gender.value = data.gender
         status.value = data.status
-        dataForm.innerHTML = ``
+        dataForm.innerHTML = ` <h2>Form User</h2>
+        <div id="alert"></div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" name="gender" id="gender" class="form-control" placeholder="male / female">
+        </div>
+        <div class="form-group">
+            <label for="email">Status</label>
+            <input type="text" name="status" id="status" class="form-control" placeholder="active / inactive">
+        </div>
+        <button class="btn btn-dark mt-2" id="button" onclick="createUser()">Simpan</button>`
         btn.innerHTML = "Ubah"
         btn.setAttribute("onclick", "createUser(1, " + id + ")")
     })
